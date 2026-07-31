@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
 import { AppProvider } from './context/AppContext';
 import { ToastProvider } from './context/ToastContext';
