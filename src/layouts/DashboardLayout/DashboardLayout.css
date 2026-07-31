@@ -1,0 +1,152 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+}
+
+.dashboard-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+  flex: 1;
+}
+
+.dashboard-header {
+  height: 64px;
+  background: var(--surface-0);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.75rem;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.dashboard-header__left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.dashboard-header__hamburger {
+  display: none;
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 0.4rem;
+  cursor: pointer;
+}
+
+/* Breadcrumb */
+.dashboard-header__breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--text-tertiary);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+}
+
+.breadcrumb-item:hover {
+  color: var(--text-primary);
+}
+
+.breadcrumb-item--active {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.breadcrumb-separator {
+  color: var(--border-hover);
+}
+
+/* Search Pill */
+.dashboard-header__search-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  color: var(--text-tertiary);
+  font-size: 0.825rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 220px;
+}
+
+.dashboard-header__search-pill:hover {
+  background: var(--surface-2);
+  border-color: var(--border-hover);
+  color: var(--text-secondary);
+}
+
+.dashboard-header__search-pill kbd {
+  margin-left: auto;
+  font-family: monospace;
+  background: var(--surface-2);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  border: 1px solid var(--border-subtle);
+}
+
+/* Header Actions */
+.dashboard-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Dashboard Body Viewport */
+.dashboard-body {
+  flex: 1;
+  padding: 2rem;
+}
+
+.mobile-overlay-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 490;
+}
+
+/* Mobile Media Queries */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header__hamburger {
+    display: flex;
+  }
+
+  .dashboard-header__search-pill {
+    display: none;
+  }
+
+  .dashboard-header {
+    padding: 0 1rem;
+  }
+
+  .mobile-overlay-backdrop {
+    display: block;
+  }
+}

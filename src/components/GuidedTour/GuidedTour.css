@@ -1,0 +1,90 @@
+.tour-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 99999;
+  padding: 2rem;
+}
+
+.tour-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--surface-0);
+  border: 1px solid var(--brand-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 10px 40px rgba(124, 58, 237, 0.35);
+  overflow: hidden;
+}
+
+.tour-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--surface-1);
+}
+
+.tour-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+.tour-icon {
+  color: var(--brand-primary);
+}
+
+.tour-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.tour-body h3 {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+.tour-body p {
+  font-size: 0.925rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.tour-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: var(--surface-1);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.tour-dots {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.tour-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  transition: all var(--transition-fast);
+}
+
+.tour-dot--active {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--brand-primary);
+}

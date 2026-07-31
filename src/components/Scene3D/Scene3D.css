@@ -1,0 +1,22 @@
+.scene3d-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.scene3d-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
+}
+
+.scene3d-fallback {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 30%, rgba(124, 58, 237, 0.15), transparent 70%);
+}
