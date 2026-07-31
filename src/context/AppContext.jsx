@@ -74,8 +74,11 @@ export const AppProvider = ({ children }) => {
 
   // URL parameter check on mount (?data=ENCODED)
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const dataParam = params.get('data');
+    let dataParam = new URLSearchParams(window.location.search).get('data');
+    if (!dataParam && window.location.hash.includes('?')) {
+      const hashSearch = window.location.hash.split('?')[1];
+      dataParam = new URLSearchParams(hashSearch).get('data');
+    }
     if (dataParam) {
       try {
         const decoded = JSON.parse(decodeURIComponent(atob(dataParam)));

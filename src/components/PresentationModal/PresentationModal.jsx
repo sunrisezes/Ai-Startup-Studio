@@ -45,7 +45,7 @@ export const PresentationModal = () => {
     try {
       const jsonStr = JSON.stringify(concept);
       const encoded = btoa(encodeURIComponent(jsonStr));
-      const shareUrl = `${window.location.origin}/dashboard/overview?data=${encoded}`;
+      const shareUrl = `${window.location.origin}${window.location.pathname}#/dashboard/overview?data=${encoded}`;
       navigator.clipboard.writeText(shareUrl);
       showToast('Shareable link copied to clipboard!', 'success');
     } catch (err) {
