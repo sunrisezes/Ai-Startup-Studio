@@ -86,10 +86,17 @@
   padding: 1.5rem;
 }
 
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+  -webkit-overflow-scrolling: touch;
+}
+
 .economics-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+  min-width: 500px;
 }
 
 .economics-table th, .economics-table td {
@@ -146,4 +153,25 @@
 
 .moat-content strong, .gtm-content strong {
   color: var(--text-primary);
+}
+
+/* Mobile Responsiveness Rules */
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing-card {
+    padding: 1.25rem;
+  }
+
+  .business-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .economics-card, .moat-card, .gtm-card {
+    padding: 1.25rem;
+  }
 }

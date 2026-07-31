@@ -69,3 +69,14 @@
 .tool-link-icon {
   color: var(--brand-cyan);
 }
+
+/* Mobile Responsiveness Rules */
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tool-card {
+    padding: 1.25rem;
+  }
+}

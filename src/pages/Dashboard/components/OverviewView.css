@@ -22,6 +22,7 @@
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 0.85rem;
+  flex-wrap: wrap;
 }
 
 .overview-title {
@@ -87,6 +88,7 @@
   font-weight: 700;
   color: var(--text-primary);
   font-size: 0.95rem;
+  word-break: break-word;
 }
 
 .domain-card-footer {
@@ -183,4 +185,56 @@
   font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 1.5;
+}
+
+/* Mobile Responsiveness Rules */
+@media (max-width: 900px) {
+  .domains-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .overview-hero-card {
+    padding: 1.25rem;
+  }
+
+  .overview-hero-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .overview-hero-cta {
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .overview-title {
+    font-size: 1.65rem;
+  }
+
+  .overview-tagline {
+    font-size: 0.95rem;
+  }
+
+  .domains-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .overview-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .elevator-pitch-card {
+    padding: 1.25rem;
+  }
+
+  .pitch-text {
+    font-size: 0.95rem;
+  }
 }
