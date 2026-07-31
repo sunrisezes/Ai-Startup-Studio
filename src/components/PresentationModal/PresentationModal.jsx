@@ -58,17 +58,22 @@ export const PresentationModal = () => {
     <div className="modal-overlay animate-fade-in" onClick={() => setIsPresentationOpen(false)}>
       <div className="presentation-card animate-slide-up" onClick={(e) => e.stopPropagation()}>
         <div className="presentation-header">
-          <div className="presentation-badge">
-            <Presentation size={18} /> Pitch Deck Presentation Mode
+          <div className="presentation-header-main">
+            <div className="presentation-badge">
+              <Presentation size={18} /> <span>Pitch Deck Mode</span>
+            </div>
+            <button className="modal-close mobile-close-btn" onClick={() => setIsPresentationOpen(false)}>
+              <X size={20} />
+            </button>
           </div>
           <div className="presentation-header-actions">
             <Button variant="secondary" size="sm" icon={Share2} onClick={handleCopyShareableLink}>
-              Copy Shareable Link
+              Share Link
             </Button>
             <Button variant="secondary" size="sm" icon={Download} onClick={handleExportPdf}>
-              Export as PDF
+              PDF Export
             </Button>
-            <button className="modal-close" onClick={() => setIsPresentationOpen(false)}>
+            <button className="modal-close desktop-close-btn" onClick={() => setIsPresentationOpen(false)}>
               <X size={20} />
             </button>
           </div>
