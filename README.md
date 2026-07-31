@@ -10,7 +10,7 @@
 [![Groq AI](https://img.shields.io/badge/AI-Groq%20Llama%203.3-F34F29?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 
-[🌐 Live Demo](https://sunrisezes.github.io/Ai-Startup-Studio/#/) • [⚡ Deploy on Vercel](#-deploy-to-vercel-or-netlify) • [📖 Documentation](#-tech-stack--architecture)
+[🌐 Live Demo](https://sunrisezes.github.io/Ai-Startup-Studio/) • [⚡ Deploy on Vercel](#-deploy-to-vercel-or-netlify) • [📖 Documentation](#-tech-stack--architecture)
 
 ---
 
