@@ -7,22 +7,22 @@ export const GROQ_MODELS = [
   'llama-3.1-8b-instant',
 ];
 
-const sanitizeKey = (key) => {
+export const sanitizeKey = (key) => {
   if (!key) return '';
   return key.trim().replace(/^["']|["']$/g, '').trim();
 };
 
 export function getApiKey() {
+  const sessionKey = sanitizeKey(sessionStorage.getItem('groqKey'));
+  if (sessionKey && sessionKey !== 'gsk_...' && sessionKey !== 'gsk_your_actual_groq_api_key_here') {
+    return sessionKey;
+  }
   const envKey = sanitizeKey(import.meta.env.VITE_GROQ_API_KEY);
   if (envKey && envKey !== 'gsk_...' && envKey !== 'gsk_your_actual_groq_api_key_here') {
     return envKey;
   }
-  const sessionKey = sanitizeKey(sessionStorage.getItem('groqKey'));
-  if (sessionKey && sessionKey !== 'gsk_...') {
-    return sessionKey;
-  }
   const localKey = sanitizeKey(localStorage.getItem('groq_api_key'));
-  if (localKey && localKey !== 'gsk_...') {
+  if (localKey && localKey !== 'gsk_...' && localKey !== 'gsk_your_actual_groq_api_key_here') {
     return localKey;
   }
   return '';
@@ -70,6 +70,10 @@ export async function generateChatCompletion({ preferredModel, model, messages, 
       const errData = await response.json().catch(() => ({}));
       const errorMessage = errData?.error?.message || `Groq API HTTP Error ${response.status}`;
       lastError = errorMessage;
+
+      if (response.status === 401) {
+        throw new Error('Groq API Key is invalid or expired. Please update VITE_GROQ_API_KEY in your Vercel project settings or enter a valid key in the API Key modal.');
+      }
 
       if (
         response.status === 429 ||
