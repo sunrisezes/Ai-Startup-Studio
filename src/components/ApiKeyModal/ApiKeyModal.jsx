@@ -3,11 +3,12 @@ import { X, Key, Check } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
+import { getApiKey } from '../../services/geminiService';
 import './ApiKeyModal.css';
 
 export const ApiKeyModal = () => {
   const { isApiKeyModalOpen, setIsApiKeyModalOpen } = useApp();
-  const [apiKey, setApiKey] = useState(() => sessionStorage.getItem('groqKey') || localStorage.getItem('groq_api_key') || '');
+  const [apiKey, setApiKey] = useState(() => getApiKey() || '');
   const [saved, setSaved] = useState(false);
 
   if (!isApiKeyModalOpen) return null;

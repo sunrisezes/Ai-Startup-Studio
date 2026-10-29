@@ -1,5 +1,11 @@
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-export const GROQ_MODELS = ['llama-3.1-8b-instant', 'llama-3.3-70b-versatile', 'gemma2-9b-it'];
+export const GROQ_MODELS = [
+  'openai/gpt-oss-120b',
+  'qwen/qwen3.8-27b',
+  'openai/gpt-oss-20b',
+  'llama-3.3-70b-versatile',
+  'llama-3.1-8b-instant',
+];
 
 const sanitizeKey = (key) => {
   if (!key) return '';
@@ -7,6 +13,10 @@ const sanitizeKey = (key) => {
 };
 
 export function getApiKey() {
+  const envKey = sanitizeKey(import.meta.env.VITE_GROQ_API_KEY);
+  if (envKey && envKey !== 'gsk_...' && envKey !== 'gsk_your_actual_groq_api_key_here') {
+    return envKey;
+  }
   const sessionKey = sanitizeKey(sessionStorage.getItem('groqKey'));
   if (sessionKey && sessionKey !== 'gsk_...') {
     return sessionKey;
@@ -15,14 +25,10 @@ export function getApiKey() {
   if (localKey && localKey !== 'gsk_...') {
     return localKey;
   }
-  const envKey = sanitizeKey(import.meta.env.VITE_GROQ_API_KEY);
-  if (envKey && envKey !== 'gsk_...') {
-    return envKey;
-  }
   return '';
 }
 
-export async function generateChatCompletion({ preferredModel, messages, maxTokens = 1200 }) {
+export async function generateChatCompletion({ preferredModel, model, messages, maxTokens = 1200 }) {
   const apiKey = getApiKey();
 
   if (!apiKey) {
@@ -33,7 +39,8 @@ export async function generateChatCompletion({ preferredModel, messages, maxToke
   const backoffDelays = [800, 1500, 3000];
   let lastError = null;
 
-  const modelsToTry = preferredModel ? [preferredModel, ...GROQ_MODELS.filter(m => m !== preferredModel)] : GROQ_MODELS;
+  const chosenModel = preferredModel || model;
+  const modelsToTry = chosenModel ? [chosenModel, ...GROQ_MODELS.filter(m => m !== chosenModel)] : GROQ_MODELS;
 
   for (let attempt = 0; attempt < modelsToTry.length; attempt++) {
     const currentModel = modelsToTry[attempt];
@@ -67,10 +74,14 @@ export async function generateChatCompletion({ preferredModel, messages, maxToke
       if (
         response.status === 429 ||
         response.status === 400 ||
+        response.status === 404 ||
         response.status >= 500 ||
         errorMessage.includes('TPM') ||
         errorMessage.includes('tokens per minute') ||
         errorMessage.includes('Request too large') ||
+        errorMessage.includes('model_not_found') ||
+        errorMessage.includes('decommissioned') ||
+        errorMessage.includes('not exist') ||
         errorMessage.includes('limit')
       ) {
         console.warn(`[Groq Model ${currentModel} limit/error]: ${errorMessage}. Retrying with model ${GROQ_MODELS[(attempt + 1) % GROQ_MODELS.length]}...`);
@@ -82,12 +93,14 @@ export async function generateChatCompletion({ preferredModel, messages, maxToke
     } catch (err) {
       lastError = err.message;
       if (
-        attempt < GROQ_MODELS.length - 1 &&
+        attempt < modelsToTry.length - 1 &&
         (err.message.includes('429') ||
+          err.message.includes('404') ||
           err.message.includes('500') ||
           err.message.includes('fetch') ||
           err.message.includes('TPM') ||
           err.message.includes('limit') ||
+          err.message.includes('model') ||
           err.message.includes('Request too large'))
       ) {
         await new Promise((res) => setTimeout(res, backoffDelays[attempt] || 1000));

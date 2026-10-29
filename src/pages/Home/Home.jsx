@@ -21,6 +21,7 @@ import Card from '../../components/Card/Card';
 import ThemeToggle from '../../components/ThemeToggle/ThemeToggle';
 import AnimateOnScroll from '../../components/AnimateOnScroll/AnimateOnScroll';
 import ApiKeyModal from '../../components/ApiKeyModal/ApiKeyModal';
+import { getApiKey } from '../../services/geminiService';
 import './Home.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -163,7 +164,7 @@ export const Home = () => {
   }, [prefersReducedMotion]);
 
   const checkApiKeyAndGenerate = async (queryText) => {
-    const key = sessionStorage.getItem('groqKey') || localStorage.getItem('groq_api_key') || import.meta.env.VITE_GROQ_API_KEY;
+    const key = getApiKey();
     if (!key) {
       setIsApiKeyModalOpen(true);
       return;
